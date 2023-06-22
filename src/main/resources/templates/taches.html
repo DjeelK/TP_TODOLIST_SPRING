@@ -9,20 +9,54 @@
     <title>Title</title>
 </head>
 <body>
-<div>
+<div class="container">
     <a  th:href="@{/task/form}" class="btn btn-primary my-4">Add Tache</a>
-</div>
+    <section class="vh-100" style="background-color: #eee;">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col col-lg-9 col-xl-7">
+                    <div class="card rounded-3">
+                        <div class="card-body p-4">
+                            <h4 class="text-center my-3 pb-3">To Do List</h4>
+                            <form th:action="@{/task/search}" method="get" class="row row-cols-lg-auto g-3 justify-content-center align-items-center mb-4 pb-2">
+                                <div class="col-12">
+                                    <div class="form-outline">
+                                        <input type="text" name="tacheId" placeholder="ID de la tâche" class="form-control">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Rechercher</button>
+                                </div>
+                            </form>
+                            <table class="table mb-4">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Titre</th>
+                                    <th scope="col">Description</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">IsDone</th>
+                                    <th scope="col">Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                <tr th:each="tache : ${taches}" >
+                                    <td th:text="${tache.titre}"></td>
+                                    <td th:text="${tache.description}"></td>
+                                    <td th:text="${#dates.format(tache.dateToDo,'dd-MMM-yyyy')}"></td>
+                                    <td th:text="${tache.isDone}" th:class="${tache.isDone != false} ? 'bg-success' : 'bg-danger'" ></td>
+                                    <td ><a th:href="@{/task/edit/{id}(id=${tache.id})}" class="btn btn-warning mx-2">Edit</a><a class="btn btn-danger mx-2" th:href="@{/task/delete/{id}(id=${tache.id})}">Delete</a></td>
+                                </tr>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 <tbody>
-<tr th:each="tache : ${taches}" >
-    <td th:text="${tache.titre}"></td>
-    <td th:text="${tache.description}"></td>
-    <td th:text="${#dates.format(tache.dateToDo,'dd-MMM-yyyy')}"></td>
-    <td th:text="${tache.isDone}"></td>
-</tr>
 </tbody>
+</div>
 </body>
-<form th:action="@{/task/search}" method="get">
-    <input type="text" name="tacheId" placeholder="ID de la tâche">
-    <button type="submit" class="btn btn-primary">Rechercher</button>
-</form>
 </html>
