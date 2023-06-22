@@ -9,6 +9,9 @@
     <title>Title</title>
 </head>
 <body>
+<div>
+    <a  th:href="@{/task/form}" class="btn btn-primary my-4">Add Tache</a>
+</div>
 <tbody>
 <tr th:each="tache : ${taches}" >
     <td th:text="${tache.titre}"></td>
@@ -18,4 +21,8 @@
 </tr>
 </tbody>
 </body>
+<form th:action="@{/task/search}" method="get">
+    <input type="text" name="tacheId" placeholder="ID de la tâche">
+    <button type="submit" class="btn btn-primary">Rechercher</button>
+</form>
 </html>
